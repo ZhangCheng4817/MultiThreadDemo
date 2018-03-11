@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.omg.CORBA.TIMEOUT;
+
 public class MyQueue {
 	
 	//1 需要一个承装元素的集合 
@@ -75,44 +77,44 @@ public class MyQueue {
 	
 	public static void main(String[] args) {
 		
-		final MyQueue mq = new MyQueue(5);
-		mq.put("a");
-		mq.put("b");
-		mq.put("c");
-		mq.put("d");
-		mq.put("e");
-		
-		System.out.println("当前容器的长度:" + mq.getSize());
-		
+		final MyQueue mq = new MyQueue(5);// 初始化一个模拟队列的长度为5
+		mq.put("1");
+		mq.put("2");
+		mq.put("3");
+		mq.put("4");
+		mq.put("5");
+		System.out.println("当前容器的长度为:"+mq.getSize());
 		Thread t1 = new Thread(new Runnable() {
+			
 			public void run() {
-				mq.put("f");
-				mq.put("g");
+				// TODO Auto-generated method stub
+				mq.put("6");
+				mq.put("7");
+				
 			}
 		},"t1");
 		
-		t1.start();
-		
+		t1.start();// 先启动t1线程去试图获取元素，由于此时容器已经满了，所以t1线程就会处于阻塞等待的状态
 		
 		Thread t2 = new Thread(new Runnable() {
+			
 			public void run() {
+				// TODO Auto-generated method stub
 				Object o1 = mq.take();
-				System.out.println("移除的元素为:" + o1);
+				System.out.println("获取一个元素："+o1);
 				Object o2 = mq.take();
-				System.out.println("移除的元素为:" + o2);
+				System.out.println("获取一个元素："+o2);
 			}
 		},"t2");
 		
-		
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(2);// 让主线程暂停2秒，然后再去启动t2 拿元素
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		t2.start();
-		
-		
 	}
 	
 	
