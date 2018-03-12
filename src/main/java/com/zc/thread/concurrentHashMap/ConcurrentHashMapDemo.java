@@ -3,7 +3,7 @@ package com.zc.thread.concurrentHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-// 并发类容器：concurrentHashMap是采取分段读写的思想
+// 并发类容器：concurrentHashMap是采取分段读写的思想 高并发容器，线程安全的
 // 就是将一个整体的concurrentHashMap 分成多个段。每个段可以看成是一个小的hashMap
 // 读写的时候，先确定段 ，然后在指定的段内进行读写操作
 public class ConcurrentHashMapDemo {
